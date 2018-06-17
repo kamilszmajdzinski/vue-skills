@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     
-    <Skills />
+    <nav>
+      <router-link to='/'>Home</router-link>
+      <router-link to='/about'>About</router-link>
+    </nav>
+
+    <router-view />
+    
   </div>
 </template>
 
@@ -31,6 +37,11 @@ body, html {
   margin: 0;
   height: 100%;
 }
+
+nav > *{
+  margin-right: 1em;
+}
+
 #app {
     width: 50%;
 }
