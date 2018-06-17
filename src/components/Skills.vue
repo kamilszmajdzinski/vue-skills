@@ -1,24 +1,54 @@
 <template>
+
   <div class="hello">
     <h1>Skills</h1>
     <div class="holder">
+
+      <form @submit.prevent = "onSubmit">
+        <input 
+          type = "text" 
+          placeholder="Enter a skill you have.." 
+          v-model="skill"
+          v-validate = "'min:5'"
+          name="skill" />
+          <p 
+            class="alert"
+            v-if="errors.has('skill')">
+            {{ errors.first('skill') }}
+          </p>
+      </form>
+
       <ul>
         <li v-for = "(data, index) in skills" :key="index" > {{ data.skill }} </li>
       </ul>
+
     </div>
   </div>
+
 </template>
+
 
 <script>
 export default {
   name: 'Skills',
   data(){
     return{
+      skill: '',
       skills: [
         {"skill": "react.js"},
         {"skill": "redux"},
         {"skill": "react-router"},
       ]
+    }
+  },
+  methods: {
+    onSubmit(){
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.skills.push({ "skill": this.skill })
+          this.skill = ''
+        }
+      })
     }
   }
 }
@@ -53,6 +83,23 @@ export default {
 
   .container {
     box-shadow: 0px 0px 40px lightgray;
+  }
+
+  input {
+    width: calc(100% - 40px);
+    border: 0;
+    padding: 20px;
+    font-size: 1.3em;
+    background-color: #323333;
+    color: #687F7F;
+  }
+
+  .alert{
+    background: #fdf2ce;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px;
+    margin-top: -20px;
   }
 
 </style>
