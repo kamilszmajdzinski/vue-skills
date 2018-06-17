@@ -24,7 +24,7 @@
 
       <ul>
         <transition-group name = 'list' enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown" >
-          <li v-for = "(data, index) in skills" :key="index" > {{ data.skill }} </li>
+          <li v-for = "(data, index) in skills" :key="index" > {{ data.skill }} <i class="fas fa-ban" v-on:click = "removeSkill(index)"></i></li>
         </transition-group>
       </ul>
 
@@ -55,6 +55,9 @@ export default {
           this.skill = ''
         }
       })
+    },
+    removeSkill(index){
+      this.skills.splice(index, 1)
     }
   }
 }
@@ -73,6 +76,16 @@ export default {
     padding: 0;
     list-style-type: none;
   }
+
+  ul i {
+    right: 20px;
+    position: absolute;
+    transition: 0.5s ease;
+  }
+
+  ul i:hover {
+    color: red;
+  }
   
   ul li {
     padding: 20px;
@@ -81,6 +94,7 @@ export default {
     border-left: 5px solid #3EB3F6;
     margin-bottom: 2px;
     color: #3E5252;
+    position: relative;
   }
 
   p {
